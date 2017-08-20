@@ -84,8 +84,58 @@ var check = {
      * @param  {[type]}  n [description]
      * @return {Boolean}   [description]
      */
-    isNumber: function isNumber(n) {
+    isNumber: function(n) {
         return !isNaN(parseFloat(n)) && isFinite(n);
+    },
+    isNumber1: function (n) {
+        return Object.prototype.toString.call(o)=="[object Number]";
+    },
+    /**
+     * 判断是否是对象
+     * @param  {[type]}  o [description]
+     * @return {Boolean}   [description]
+     */
+    isObj:function(o){
+        return Object.prototype.toString.call(o)=="[object Object]";
+    },
+    /**
+     * 判断是否是数据
+     * @param  {[type]}  o [description]
+     * @return {Boolean}   [description]
+     */
+    isArray:function(o){
+        return Object.prototype.toString.call(o)=="[object Array]";
+    },
+    /**
+     * 判断是否为null
+     * @param  {[type]}  o [description]
+     * @return {Boolean}   [description]
+     */
+    isNULL:function(o){
+        return Object.prototype.toString.call(o)=="[object Null]";
+    },
+    /**
+     * 判断是否是对象文档
+     * @return {Boolean} [description]
+     */
+    isDocument:function(o){
+        return Object.prototype.toString.call(o)=="[object Document]"|| [object HTMLDocument];
+    },
+    /**
+     * 判断是否是正则表达式
+     * @param  {[type]}  o [description]
+     * @return {Boolean}   [description]
+     */
+    isDate: function (o) {
+        return Object.prototype.toString.call(o) == "[object RegExp]"
+    },
+    /**
+     * 判断是否是日期
+     * @param  {[type]}  o [description]
+     * @return {Boolean}   [description]
+     */
+    isDate: function (o) {
+        return Object.prototype.toString.call(o) == "[object Date]"
     },
     /**
      * 判断是否是有效日期
