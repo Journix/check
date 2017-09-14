@@ -25,7 +25,7 @@ var check = {
      * @param {[type]} str
      * @param {[type]} type
      */
-    isLegal: function(str, type) {
+    isDocLegal: function(str, type) {
         var msg = '';
         if (!new RegExp(regs[type].reg).test(str)) {
             return ' 请填写正确的证件号码';
@@ -67,13 +67,13 @@ var check = {
      * @param  {[type]}  arg [description]
      * @return {Boolean}     [description]
      */
-    isArray: function(arg) {
+    isArray: function(input) {
         //如果浏览器支持Array.isArray()可以直接判断
         if (typeof Array.isArray === 'function') {
-            return Array.isArray(arg);
+            return Array.isArray(input);
         } else {
-            if (typeof arg === 'object') {
-                return Object.prototype.toString.call(arg) === '[object Array]';
+            if (typeof input === 'object') {
+                return input instanceof Array || Object.prototype.toString.call(input) === '[object Array]';
             } else {
                 return false;
             }
@@ -88,15 +88,28 @@ var check = {
         return !isNaN(parseFloat(n)) && isFinite(n);
     },
     isNumber1: function (n) {
-        return Object.prototype.toString.call(o)=="[object Number]";
+        return typeof input === 'number' || Object.prototype.toString.call(o)=="[object Number]";
     },
     /**
      * 判断是否是对象
      * @param  {[type]}  o [description]
      * @return {Boolean}   [description]
      */
-    isObj:function(o){
-        return Object.prototype.toString.call(o)=="[object Object]";
+    isObj:function(input){
+        return input != null && Object.prototype.toString.call(input)=="[object Object]";
+    },
+    /**
+     * 判断空对象
+     * @param  {[type]}  input [description]
+     * @return {Boolean}       [description]
+     */
+    isObjEmpty: function (obj) {
+        var k;
+        for (k in obj) {
+            // even if its not own property I'd still call it non-empty
+            return false;
+        }
+        return true;
     },
     /**
      * 判断是否是数据
@@ -113,6 +126,14 @@ var check = {
      */
     isNULL:function(o){
         return Object.prototype.toString.call(o)=="[object Null]";
+    },
+    /**
+     * 判断undefined
+     * @param  {[type]}  input [description]
+     * @return {Boolean}       [description]
+     */
+    isUndefined: function (input) {
+        return input === void 0;
     },
     /**
      * 判断是否是对象文档
@@ -134,8 +155,8 @@ var check = {
      * @param  {[type]}  o [description]
      * @return {Boolean}   [description]
      */
-    isDate: function (o) {
-        return Object.prototype.toString.call(o) == "[object Date]"
+    isDate: function (input) {
+        return input instanceof Date || Object.prototype.toString.call(input) == "[object Date]"
     },
     /**
      * 判断是否是有效日期
